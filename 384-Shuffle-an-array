@@ -1,0 +1,45 @@
+public class Solution {
+    private List<Integer> array;
+    public Solution(int[] nums) {
+        array = new ArrayList<Integer>();
+        for (int num : nums) {
+            array.add(num);
+        }
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    public int[] reset() {
+        return IntegerListToArray(array);
+    }
+    
+    /** Returns a random shuffling of the array. */
+    public int[] shuffle() {
+        if (array == null || array.size() == 0) return new int[0];
+        List<Integer> numInPermutation = new ArrayList<Integer>();
+        getPermutation(new ArrayList<Integer>(array), numInPermutation);
+        return IntegerListToArray(numInPermutation);
+    }
+    
+    private void getPermutation(List<Integer> numToBeChosen, List<Integer> numInPermutation) {
+        if (numToBeChosen.size() == 0) return;
+        Integer nextNumber = numToBeChosen.get((int) (Math.random()*numToBeChosen.size()));
+        numToBeChosen.remove(nextNumber);
+        numInPermutation.add(nextNumber);
+        getPermutation(numToBeChosen, numInPermutation);
+    }
+    
+    private int[] IntegerListToArray(List<Integer> list) {
+        int[] array = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            array[i] = list.get(i);
+        }
+        return array;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(nums);
+ * int[] param_1 = obj.reset();
+ * int[] param_2 = obj.shuffle();
+ */
